@@ -7,7 +7,6 @@ Game::Game(const std::string& player1, const std::string& player2)
     players[1].name = player2;
 }
 
-// Основной ход игры — выстрел по координатам
 void Game::playerTurn(int x, int y) {
     if (phase == GamePhase::Setup) {
         std::cout << "Размещение завершено. Начинаем игру!\n";
@@ -32,7 +31,6 @@ void Game::playerTurn(int x, int y) {
     }
 }
 
-// Проверка завершения игры
 bool Game::isGameOver() const {
     return phase == GamePhase::Finished;
 }
@@ -49,4 +47,9 @@ void Game::printCurrentBoard() const {
 
 const std::string& Game::getCurrentPlayerName() const {
     return players[currentPlayerIndex].name;
+}
+
+// ✅ Реализация нового метода доступа к доске игрока
+Board& Game::getBoard(int index) {
+    return players[index].board;
 }
