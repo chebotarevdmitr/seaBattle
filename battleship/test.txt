@@ -1,0 +1,113 @@
+──(dmitriy㉿kali)-[~/my_repoz/seaBattle/battleship/build]
+└─$ cmake -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ..
+cmake --build .
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/dmitriy/my_repoz/seaBattle/battleship/build
+[ 20%] Building CXX object CMakeFiles/main.dir/src/Board.cpp.o
+[ 40%] Building CXX object CMakeFiles/main.dir/src/Game.cpp.o
+[ 60%] Building CXX object CMakeFiles/main.dir/src/Ship.cpp.o
+[ 80%] Building CXX object CMakeFiles/main.dir/src/main.cpp.o
+[100%] Linking CXX executable main
+[100%] Built target main
+
+┌──(dmitriy㉿kali)-[~/my_repoz/seaBattle/battleship/build]
+└─$ ./main
+Флот размещён! Начинаем игру.
+
+Ход игрока: Player1
+Доска соперника (Player2):
+  0 1 2 3 4 5 6 7 8 9 
+0 . . . . . . . S . . 
+1 . . . . . . . S . . 
+2 . . . . . . . S . . 
+3 . . . . . . . . . . 
+4 . S S . . . . . . . 
+5 . . . . S . S S . . 
+6 . . . . S . S S . . 
+7 . . . . S . . . . . 
+8 . . . . S . . . . . 
+9 . . . . S S S . . . 
+Введите координаты выстрела (x y): 5 9
+Размещение завершено. Начинаем игру!
+Player1 стреляет по (5, 9) — попадание!
+
+Ход игрока: Player2
+
+
+┌──(dmitriy㉿kali)-[~/my_repoz/seaBattle/battleship]
+└─$ cd ~/my_repoz/seaBattle/battleship
+mkdir build && cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ..
+cmake --build .                                                             
+ 
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/dmitriy/my_repoz/seaBattle/battleship/build
+[ 20%] Building CXX object CMakeFiles/main.dir/src/Board.cpp.o
+[ 40%] Building CXX object CMakeFiles/main.dir/src/Game.cpp.o
+[ 60%] Building CXX object CMakeFiles/main.dir/src/Ship.cpp.o
+[ 80%] Building CXX object CMakeFiles/main.dir/src/main.cpp.o
+[100%] Linking CXX executable main
+[100%] Built target main
+
+┌──(dmitriy㉿kali)-[~/my_repoz/seaBattle/battleship/build]
+└─$ ./main
+Флот размещён! Начинаем игру.
+
+Ход игрока: Player1
+Доска соперника (Player2):
+  0 1 2 3 4 5 6 7 8 9 
+0 . . . . . . . . . . 
+1 . . . . . . . . . . 
+2 . S S S . . . . . . 
+3 . . . . . . . . . . 
+4 . . . . . . . S S . 
+5 . . . . . . . S . . 
+6 . . . . . S . S . . 
+7 . . . . . S . . . . 
+8 . . . . . . . . . . 
+9 S S S S . S S S . . 
+Введите координаты выстрела (x y): 3 2
+Размещение завершено. Начинаем игру!
+Player1 стреляет по (3, 2) — попадание!
+
+Ход игрока: Player1
+Доска соперника (Player2):
+  0 1 2 3 4 5 6 7 8 9 
+0 . . . . . . . . . . 
+1 . . . . . . . . . . 
+2 . S S X . . . . . . 
+3 . . . . . . . . . . 
+4 . . . . . . . S S . 
+5 . . . . . . . S . . 
+6 . . . . . S . S . . 
+7 . . . . . S . . . . 
+8 . . . . . . . . . . 
+9 S S S S . S S S . . 
+Введите координаты выстрела (x y): 2 2
+Player1 стреляет по (2, 2) — попадание!

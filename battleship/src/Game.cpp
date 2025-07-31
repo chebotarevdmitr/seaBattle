@@ -7,6 +7,7 @@ Game::Game(const std::string& player1, const std::string& player2)
     players[1].name = player2;
 }
 
+// 🎯 Ход игрока: стреляет по координатам
 void Game::playerTurn(int x, int y) {
     if (phase == GamePhase::Setup) {
         std::cout << "Размещение завершено. Начинаем игру!\n";
@@ -20,13 +21,17 @@ void Game::playerTurn(int x, int y) {
     Player& opponent = players[(currentPlayerIndex + 1) % 2];
 
     bool hit = opponent.board.fireAt(x, y);
+
     std::cout << current.name << " стреляет по (" << x << ", " << y << ") — "
               << (hit ? "попадание!" : "мимо...") << "\n";
 
     if (opponent.board.allShipsSunk()) {
         std::cout << current.name << " победил!\n";
         phase = GamePhase::Finished;
-    } else {
+    }
+
+    // 🔁 Переход хода — только если промах
+    if (!hit && phase != GamePhase::Finished) {
         currentPlayerIndex = (currentPlayerIndex + 1) % 2;
     }
 }
@@ -49,7 +54,8 @@ const std::string& Game::getCurrentPlayerName() const {
     return players[currentPlayerIndex].name;
 }
 
-// ✅ Реализация нового метода доступа к доске игрока
+// ✅ Метод для доступа к доске конкретного игрока
 Board& Game::getBoard(int index) {
     return players[index].board;
 }
+
