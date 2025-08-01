@@ -54,7 +54,6 @@ const std::string& Game::getCurrentPlayerName() const {
     return players[currentPlayerIndex].name;
 }
 
-// ✅ Метод для доступа к доске конкретного игрока
 Board& Game::getBoard(int index) {
     return players[index].board;
 }
