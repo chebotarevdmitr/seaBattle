@@ -1,20 +1,20 @@
 #include <iostream>
-#include <cstdlib>   // rand, srand
-#include <ctime>     // time
+#include <cstdlib>      // rand, srand
+#include <ctime>        // time
+#include <sstream>      // std::istringstream
 #include "../include/Game.h"
 
 Orientation randomOrientation() {
     return rand() % 2 == 0 ? Orientation::Horizontal : Orientation::Vertical;
 }
 
-// Получение случайных координат для размещения
 std::pair<int, int> randomPosition(int maxX, int maxY) {
     int x = rand() % maxX;
     int y = rand() % maxY;
     return {x, y};
 }
 
-// Функция автоматической расстановки кораблей
+// 🚢 Автоматическая расстановка кораблей
 void autoPlaceFleet(Board& board) {
     std::vector<std::pair<std::string, int>> fleet = {
         {"Battleship", 4},
@@ -38,25 +38,42 @@ int main() {
 
     Game game("Player1", "Player2");
 
-    // Автоматическое размещение для обоих игроков
-    autoPlaceFleet(game.getBoard(0));  // board игрока 1
-    autoPlaceFleet(game.getBoard(1));  // board игрока 2
+    autoPlaceFleet(game.getBoard(0));  // Игрок 1
+    autoPlaceFleet(game.getBoard(1));  // Игрок 2
 
-    std::cout << "Флот размещён! Начинаем игру.\n";
+    std::cout << "⚓ Флот размещён! Начинаем игру.\n";
 
-    // Главный игровой цикл
+    // 🔁 Главный игровой цикл
     while (!game.isGameOver()) {
         std::cout << "\nХод игрока: " << game.getCurrentPlayerName() << "\n";
         game.printCurrentBoard();
 
         int x, y;
-        std::cout << "Введите координаты выстрела (x y): ";
-        std::cin >> x >> y;
+
+        // 🔒 Безопасный ввод координат
+        while (true) {
+            std::cout << "Введите координаты выстрела (x y): ";
+
+            std::string input;
+            std::getline(std::cin, input);
+
+            std::istringstream iss(input);
+            if (!(iss >> x >> y)) {
+                std::cout << "Error: недопустимая клавиша. Введите два числа через пробел.\n";
+                continue;
+            }
+
+            if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) {
+                std::cout << "Error: координаты вне поля. Диапазон — от 0 до 9.\n";
+                continue;
+            }
+
+            break; // ✅ Корректный ввод
+        }
 
         game.playerTurn(x, y);
     }
 
-    std::cout << "\nИгра завершена!\n";
+    std::cout << "\n🏁 Игра завершена!\n";
     return 0;
 }
-
