@@ -1,37 +1,63 @@
 #pragma once
-#include "../include/Board.h"
 #include <string>
+#include "Board.h"
 
-// 🎮 Фазы игрового процесса
+// 🎮 Состояние игры
 enum class GamePhase {
-    Setup,
-    InProgress,
-    Finished
+    Setup,      // ⛵ Расстановка кораблей
+    InProgress, // ⚔️ Игра идёт
+    Finished    // 🏁 Игра завершена
 };
 
-// 🧑‍✈️ Игрок: имя + его поле
+// 👤 Игрок с именем и доской
 struct Player {
     std::string name;
     Board board;
 };
 
-// 🕹️ Главный игровой контроллер
+// 🎯 Класс Game управляет логикой боя
 class Game {
+private:
+    Player players[2];           // 👥 Два игрока
+    int currentPlayerIndex;      // 🧭 Кто сейчас ходит (0 или 1)
+    GamePhase phase;             // 🕹️ Фаза игры
+
 public:
+    // 📦 Создание новой игры с двумя именами
     Game(const std::string& player1, const std::string& player2);
 
+    // 🎮 Выполнение хода
     void playerTurn(int x, int y);
-    bool isGameOver() const;
+
+    // 🔁 Получить фазу (например, чтобы завершить игру)
     GamePhase getPhase() const;
-    void printCurrentBoard() const;
-    const std::string& getCurrentPlayerName() const;
 
-    // ✅ Новый метод — доступ к доске по индексу игрока (0 или 1)
-    Board& getBoard(int index);
+    // 🎟️ Получить имя текущего игрока
+    std::string getCurrentPlayerName() const {
+        return players[currentPlayerIndex].name;
+    }
 
-private:
-    Player players[2];
-    int currentPlayerIndex;
-    GamePhase phase;
+    // 📊 Отобразить доску соперника
+    void printCurrentBoard() const {
+        const Player& opponent = players[(currentPlayerIndex + 1) % 2];
+        opponent.board.printBoardFramed();
+    }
+
+    // 📟 Новый метод: показать обе доски
+    void displayState() const;
+
+    // 🧭 Доступ к доске игрока по индексу
+    Board& getBoard(int index) {
+        return players[index].board;
+    }
+
+    const Board& getBoard(int index) const {
+        return players[index].board;
+    }
+
+    // ⚖️ Проверка на завершение игры
+    bool isGameOver() const {
+        return phase == GamePhase::Finished;
+    }
 };
 
